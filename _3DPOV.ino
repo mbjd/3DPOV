@@ -1648,7 +1648,11 @@ void sendData() {
   digitalWrite(LE, LOW);
 
   SPI.endTransaction();
+  digitalWrite(OE, LOW);
   currentPixel++;
+
+  delayMicroseconds(period/300);
+  digitalWrite(OE, HIGH);
 
   //End the program if there's no rotation anymore
   if (currentPixel>300) {

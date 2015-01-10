@@ -1584,7 +1584,7 @@ volatile int currentBoard = 0;
 volatile int periodSum = 0;
 volatile int periodAverage = 0;
 volatile int periodIndex = 0;
-int periodMeasurements[16] = {0};
+int periodArray[64] = {0};
 
 //Fixed values
 const int LE=5;
@@ -1614,20 +1614,18 @@ void timerUpdate() {
   outputTimer.end();
   currentPixel = 0;
 
-  //Get the right index of the measurements array
+  //Write a new measurement to the oldest position in the array
   periodIndex++;
-  periodIndex = periodIndex%16;
-
-  //Write a new measurement to the array
-  periodMeasurements[periodIndex] = micros() - microsOld;
+  periodIndex = periodIndex%64;
+  periodArray[periodIndex] = micros() - microsOld;
   microsOld = micros();
 
-  //Calculate the sum and average of the previous 16 measurements
+  //Determine the average of all measurements
   periodSum = 0;
-  for(int i = 0; i<16; i++) {
-    periodSum = periodSum + periodMeasurements[i];
+  for(int i = 0; i<64; i++) {
+    periodSum = periodSum + periodArray[i];
   }
-  periodAverage = floor((periodSum/16)+0.5);
+  periodAverage = periodSum >> 6;
 
   //start timer, if not too slow
   if(periodAverage < 1000000) {

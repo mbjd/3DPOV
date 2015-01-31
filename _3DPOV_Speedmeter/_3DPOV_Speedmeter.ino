@@ -133,6 +133,7 @@ const byte numbers[][5][6] =
 
 volatile uint32_t currentPixel = 0;
 volatile uint32_t periodAverage = 18000;
+volatile uint32_t periodRaw = 0;
 volatile int32_t currentCharIndex = 0;
 volatile char currentChar;
 volatile uint32_t currentNumber;
@@ -164,7 +165,7 @@ void loop() {}
 void timerUpdate() {
   // Calculate the exponential moving average of the period measurement
   periodAverage = (sinceMagnet + 15*periodAverage)/16;
-
+  periodRaw = sinceMagnet;
 
   sinceMagnet = 0;
   currentPixel = 63;
@@ -173,7 +174,7 @@ void timerUpdate() {
   outputTimer.end();
   outputTimer.begin(sendData, periodAverage/128);
   
-  periodString = String(periodAverage) + ":" + String(1000000/periodAverage) + "<=";
+  periodString = String(periodRaw) + ":" + String(1000000/periodRaw) + "<=";
   periodString = periodString + ";" + periodString;
   currentCharIndex = 1;
   currentNumber = periodString.charAt(periodString.length() - 1) - '0';

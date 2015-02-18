@@ -779,27 +779,27 @@ const byte byteArray[100][10][6] = {
 
    
   /*
-  * 000000000000000000000000000             00000000000000             000000
-  * 000000000000000000000000000          00000000000000000000          000000
-  * 000000000000000000000000000        000000000000000000000000        000000
-  * 000000                            00000000          00000000       000000
-  * 000000                           0000000              0000000      000000
-  * 000000                           000000                000000      000000
-  * 000000                           000000                000000      000000
-  * 000000                           000000                000000      000000
-  * 00000000000000000000             000000                000000      000000
-  * 00000000000000000000000          000000                000000      000000
-  *   00000000000000000000000        000000                000000      000000
-  *                   00000000       000000                000000      000000
-  *                     0000000      000000                000000      000000
-  *                      000000      000000                000000      000000
-  *                      000000      000000                000000      000000
-  * 0000000             0000000      0000000              0000000
-  *  00000000         00000000        00000000          00000000
-  *    0000000000000000000000          000000000000000000000000        000000
-  *      000000000000000000              00000000000000000000          000000
-  *         000000000000                    00000000000000             000000
-  */
+   * 000000000000000000000000000             00000000000000             000000
+   * 000000000000000000000000000          00000000000000000000          000000
+   * 000000000000000000000000000        000000000000000000000000        000000
+   * 000000                            00000000          00000000       000000
+   * 000000                           0000000              0000000      000000
+   * 000000                           000000                000000      000000
+   * 000000                           000000                000000      000000
+   * 000000                           000000                000000      000000
+   * 00000000000000000000             000000                000000      000000
+   * 00000000000000000000000          000000                000000      000000
+   *   00000000000000000000000        000000                000000      000000
+   *                   00000000       000000                000000      000000
+   *                     0000000      000000                000000      000000
+   *                      000000      000000                000000      000000
+   *                      000000      000000                000000      000000
+   * 0000000             0000000      0000000              0000000
+   *  00000000         00000000        00000000          00000000
+   *    0000000000000000000000          000000000000000000000000        000000
+   *      000000000000000000              00000000000000000000          000000
+   *         000000000000                    00000000000000             000000
+   */
 
 
 
@@ -1411,7 +1411,7 @@ const byte byteArray[100][10][6] = {
     {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000},
     {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000},
     {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000},
-    {0b00000000, 0b00000000      , 0b00000000, 0b00000000, 0b00000000, 0b00000000},
+    {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000},
     {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000},
     {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000},
     {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000}
@@ -1574,12 +1574,12 @@ const byte byteArray[100][10][6] = {
     {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000},
     {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000}
   },
-}; // End of byteArray
+}; // End of byteArray.
 
 
-//
-// Changing values. Volatile because they are handled within an Interrupt
-//
+/**
+ * Changing values. Volatile because they are handled within an Interrupt
+ */
 
 // Tracks the current angle in units of 3.6°. Incremented at the end of sendData().
 volatile unsigned int currentPixel = 0; 
@@ -1601,9 +1601,9 @@ elapsedMicros sinceMagnet;
 volatile unsigned long periodAverage = 45000;
 
 
-//
-// Fixed values
-//
+/**
+ * Fixed values
+ */
 
 // A short pulse on this pin moves the received data from the input shift registers to the output
 // latches of the LED drivers
@@ -1644,7 +1644,7 @@ void setup()
 } // End of setup()
 
 /**
- * Empty loop(), since the entire program flow is triggered by the interrupt calling timerUpdate().
+ * - Empty loop(), since the entire program flow is triggered by the interrupt calling timerUpdate().
  */
 
 void loop() {}
@@ -1657,7 +1657,8 @@ void loop() {}
 void timerUpdate() 
 {
   // Measure the time and smooth it out using an exponential moving average
-  periodAverage = (sinceMagnet + 15*periodAverage)/16; // Division by 2^n is a simple right shift
+  // Division by 2^n is a simple right shift by log2(n)
+  periodAverage = (sinceMagnet + 15*periodAverage)/16;
 
   // Reset everything
   sinceMagnet = 0;
@@ -1680,7 +1681,7 @@ void sendData()
   // Cycles through five pairs of PCBs.
   for(int i=0; i<5; i++) 
   {
-    // Refresh even layer 2*i. +68 so that pixel #0 is displayed at 0°.
+    // Move to the first PCB of the next pair.
     currentBoard = 2*i;
 
     // +8*i because each pair of PCBs is offset to the one above it by 8/100 of a whole circle.
@@ -1694,7 +1695,7 @@ void sendData()
       SPI.transfer(byteArray[offsetPixel][currentBoard][j]);
     }
     
-    // Move down to the next PCB
+    // Move down to the other PCB of the current pair.
     currentBoard++;
 
     // The current PCB is face to face to the previous one, so offsetPixel (the temporary angle) is
@@ -1705,12 +1706,13 @@ void sendData()
     {
       SPI.transfer(byteArray[offsetPixel][currentBoard][j]);
     }
-  } // End of outer for loop
+  } // End of outer for loop.
 
-  // Latch the data and finish the transaction
+  // Latch the data and finish the transaction.
   digitalWrite(latchPin, HIGH);
   delayMicroseconds(1);
   digitalWrite(latchPin, LOW);
+
   SPI.endTransaction();
   
   // Increment the angle so that it is correct at the next call of sendData()

@@ -10,3 +10,7 @@ http://www.reddit.com/r/electronics/comments/2m6apx/finally_my_led_board_works_h
 http://www.reddit.com/r/electronics/comments/2nrek4/almost_working_3d_pov_display/
 
 http://www.reddit.com/r/electronics/comments/2q9sg6/my_3d_pov_in_action_as_promised/
+
+![Photo of it in action](http://imgur.com/weyXNIT)
+
+![Photo of it standing still](http://imgur.com/SMb0HIS)

@@ -11,6 +11,6 @@ http://www.reddit.com/r/electronics/comments/2nrek4/almost_working_3d_pov_displa
 
 http://www.reddit.com/r/electronics/comments/2q9sg6/my_3d_pov_in_action_as_promised/
 
-![Photo of it in action](http://imgur.com/weyXNIT)
+![Photo of it in action](http://imgur.com/weyXNIT.jpg)
 
-![Photo of it standing still](http://imgur.com/SMb0HIS)
+![Photo of it standing still](http://imgur.com/SMb0HIS.jpg)

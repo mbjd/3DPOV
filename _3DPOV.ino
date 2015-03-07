@@ -1598,7 +1598,8 @@ volatile unsigned int currentBoard = 0;
 elapsedMicros sinceMagnet;
 
 // Used to store the period's moving average. See timerUpdate().
-volatile unsigned long periodAverage = 45000;
+// Initialised with a high value so it's not rounded down to 0 right after each new measurement.
+volatile unsigned long periodAverage = 0x4000;
 
 
 /**
@@ -1657,7 +1658,7 @@ void loop() {}
 void timerUpdate() 
 {
   // Measure the time and smooth it out using an exponential moving average
-  // Division by 2^n is a simple right shift by log2(n)
+  // Division by 2^n is a simple right shift by n
   periodAverage = (sinceMagnet + 15*periodAverage)/16;
 
   // Reset everything

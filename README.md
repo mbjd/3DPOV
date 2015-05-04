@@ -5,6 +5,8 @@ Arduino sketch for my 3-dimensional persistence of vision display (runs on a Tee
 
 (German) Matura paper PDF: http://tiny.cc/3DPOV
 
+[Video of it in action](https://www.youtube.com/watch?v=bCETWNgBxbI)
+
 Some links to discussion:
 
 http://www.reddit.com/r/electronics/comments/2m6apx/finally_my_led_board_works_had_to_make_a_little/

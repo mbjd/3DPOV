@@ -1,11 +1,11 @@
 _3DPOV
 ======
 
-Arduino sketch for my 3-dimensional persistence of vision display (runs on a Teensy 3.1). It does rotational sync using a hall sensor. Every time the hall sensor passes the magnet, an interrupt is triggered and the rotational period is measured. A timer is started that updates the LEDs 100 times per full revolution. Each time, two for loops get the right data from byteArray and update the LED drivers (TLC5927) using SPI.
+Arduino sketch for my 3-dimensional persistence of vision display (runs on a Teensy 3.1). It does rotational sync using a hall sensor. Every time the hall sensor passes the magnet, an interrupt is triggered and the rotational period is measured. A timer is started that runs 100x faster than the rotational period, so that the LEDs are updated 100 times per full revolution. At each update, two for loops get the right data from byteArray (non-sequentially :( ) and update the LED drivers (TLC5927) using SPI.
 
 (German) Matura paper PDF: http://tiny.cc/3DPOV
 
-[Video of it in action](https://www.youtube.com/watch?v=bCETWNgBxbI)
+![Video of it in action](https://www.youtube.com/watch?v=bCETWNgBxbI)
 
 Some links to discussion:
 

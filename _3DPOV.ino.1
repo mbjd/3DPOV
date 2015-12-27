@@ -1625,18 +1625,6 @@ SPISettings mySettings(48000000, LSBFIRST, SPI_MODE0);
 // and started again, with its period adjusted for the current rotational period.
 IntervalTimer outputTimer;
 
-
-/*
- * For interfacing with the RC receiver
- */
-
-// Pin to receive the RC receiver's PWM signal.
-const unsigned int RXPin = 3;
-
-elapsedMicros pulseWidthCounter;
-volatile unsigned int pulseWidth;
-
-
 /**
  * - Sets the pin modes, starts SPI.h and attaches the interrupt
  * - Is called when the program starts
@@ -1654,9 +1642,6 @@ void setup()
 
   // As soon as the magnet is detected, this Interrupt calls timerUpdate().
   attachInterrupt(hallPin, timerUpdate, FALLING);
-
-  attachInterrupt(RXPin, RXRising, RISING);
-  attachInterrupt(RXPin, RXFalling, FALLING);
 } // End of setup()
 
 /**
@@ -1664,18 +1649,6 @@ void setup()
  */
 
 void loop() {}
-
-
-// Handle the RC receiver. Access the pulseWidth variable to get the channel's position.
-void RXRising()
-{
-	pulseWidthCounter = 0;
-}
-
-void RXFalling()
-{
-	pulseWidth = pulseWidthCounter;
-}
 
 /**
  * - Measures the rotational period and refreshes outputTimer accordingly.

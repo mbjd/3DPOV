@@ -1,12 +1,16 @@
+/*
+ * This program displays a number of images by cycling through them.
+ */
+
 #include <SPI.h>
 
-// Settings
-const bool rotating = false;
-const bool waterfall = false;
+// How long to display each image. Each rev is about 1/60 s, so
+// revsPerImage / 60 = seconds per image
 const uint32_t revsPerImage = 400;
 
-
 #define NUM_OF_IMAGES 6
+
+// 4D array containing several 3D images
 const byte images[NUM_OF_IMAGES][100][10][6] = 
 {
 	// Landscape image
@@ -9011,7 +9015,7 @@ void timerUpdate(void)
 	// Calculate the new pixel duration
 	microsPerPixel = ((float) sinceMagnet) / 100.0;
 
-	// Reset timer & wait half a period before the first LED refresh 
+	// Reset timer
 	sinceMagnet = 0;
 	nextPixelMicros = 0;
 
@@ -9021,6 +9025,7 @@ void timerUpdate(void)
 	if (revCount >= revsPerImage)
 	{
 		revCount = 0;
+
 		currentImage++;
 		currentImage %= NUM_OF_IMAGES;
 	}
@@ -9033,8 +9038,7 @@ void sendData(void)
 
 	SPI.beginTransaction(mySettings);
 
-	// Send the data, taking into account the vertical board offset in
-	// case waterfall is enabled. Return if there's been an interrupt
+	// Send the data. Return if there's been an interrupt in order
 	// to not send any unnecessary data.
 	for (int i = 0; i < 5; i++)
 	{

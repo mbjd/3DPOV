@@ -4,14 +4,21 @@
 This module facilitates creating images for the 3D POV display.
 
 Use it as follows:
-- open python shell in the same directory as this file
+
+- Open python shell in the same directory as this file
+$ python3
+
+- Import this module & get an image
 >>> from mkmodel import *
 >>> image = newImage()
+
 - Modify the image using all the provided functions
+
+- Save the image in a 3D-Display compatible program
 >>> writeSketch(image, 'sketchName')
+
 - Open the file in ./sketchName/sketchName.ino using the arduino
   IDE and upload it to the display
-
 
 
 Coordinate formats: 

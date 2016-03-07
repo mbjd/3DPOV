@@ -3,6 +3,8 @@ _3DPOV
 
 Arduino sketch for my 3-dimensional persistence of vision display (runs on a Teensy 3.1). It does rotational sync using a hall sensor. Every time the hall sensor passes the magnet, an interrupt is triggered and the rotational period is measured. A timer is started that runs 100x faster than the rotational period, so that the LEDs are updated 100 times per full revolution. At each update, the program figures out where each LED row is and provides them with the image data for that location using SPI.
 
+There's also a python program (mkmodel.py) that automates the creation of images. You can draw lines, spheres, cuboids, surfaces or connect an arbitrary amount of points. Then the whole image is converted to a program that can be uploaded on the teensy 3.1.
+
 Matura paper (PDF, German): http://tiny.cc/3DPOV
 
 [Video of it in action](https://www.youtube.com/watch?v=bCETWNgBxbI)

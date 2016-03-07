@@ -21,7 +21,7 @@ $ python3
   IDE and upload it to the display
 
 
-Coordinate formats: 
+Coordinate formats:
 polar (angle 0-99, height 0-9, radius 0-15)
 cartesian (x, y, z) [mm]
 
@@ -108,7 +108,7 @@ def angle_law_of_cosines(a, b, c):
 	# Law of cosines
 	cos_of_angle = float(-(a**2) + (b**2) + (c**2)) / float(2*b*c)
 
-	# This is necessary because when b or c are very small, floating 
+	# This is necessary because when b or c are very small, floating
 	# point inaccuracies make |cos_of_angle| > 1 which makes the
 	# return value undefined
 	if cos_of_angle > 1:
@@ -121,10 +121,10 @@ def angle_law_of_cosines(a, b, c):
 
 def point_line_dst(point, line_start, line_end, cylinder=False):
 	"""
-	Calculates the minimum distance between {point} and the line between 
+	Calculates the minimum distance between {point} and the line between
 	{line_start} and {line_end} points. All arguments are cartesian (x,y,z).
 
-	If the closest point is not between {line_start} and {line_end}, the distance 
+	If the closest point is not between {line_start} and {line_end}, the distance
 	between {point} and the closest end point of the line is returned instead.
 
 	If cylinder is set to true, we instead return 2**63 - 1 for points beyond line_start and line_end
@@ -154,7 +154,7 @@ def point_line_dst(point, line_start, line_end, cylinder=False):
 		# beyond the two end points is matched
 		return 9223372036854775807
 	else:
-		# In case the nearest point on the line is not between start and end, 
+		# In case the nearest point on the line is not between start and end,
 		# we'll instead return the distance to the nearest end point of the line
 		# 1.5707963 rad = 90° = π/2
 		if angle_point < 1.5707963 - angle_start:
@@ -177,7 +177,7 @@ def drawLine(image, start, end, colour, thickness):
 	or-equals all pixels in {image} that are closer to the line (between {start}
 	and {end}) than {thickness} with the {colour} value (int, 0-7).
 
-	All arguments are in cartesian and mm 
+	All arguments are in cartesian and mm
 	"""
 	for (angle, height, radius), value in np.ndenumerate(image):
 		cart = cartesian(angle, height, radius)
@@ -210,12 +210,25 @@ def drawSpherePolar(image, position, colour, radius):
 	radius = px_to_mm(radius)
 	drawLine(image, position, position, colour, radius)
 
-def plotFunction(function, colour):
+def plotFunction(image, function, colour):
 	"""
 	Plot a function (x, y, z) [mm] -> colour [0-7]
 	"""
 	for (angle, height, radius), value in np.ndenumerate(image):
 		image[angle][height][radius] |= function(*cartesian(*(angle, height, radius)))
+
+
+def realFunction(image, func, colour):
+	"""
+	Plots a function (x, y) [mm] -> z [pixels]
+	"""
+	
+	for angle in range(100):
+		for radius in range(16):
+			x, y, z = cartesian(angle, 0, radius)
+			z = int(func(x, y))
+			if z in range(10):
+				image[angle][z][radius] |= colour
 
 
 def fadenbild_bruteforce(image, radius, interval, twist, colour, thickness):
@@ -242,7 +255,7 @@ def drawSurface(image, surface_params, colour, thickness):
 	for (angle, height, radius), value in np.ndenumerate(image):
 		(x, y, z) = cartesian(angle, height, radius)
 		if (abs((a * x) + (b * y) + (c * z) - d) < limit):
-			image[angle][height][radius] |= colour 
+			image[angle][height][radius] |= colour
 
 def drawSurfacePx(image, surface_params, colour, thickness):
 	(a, b, c, d) = surface_params
@@ -383,7 +396,7 @@ def chunks(string, chunksize):
 
 def writeSketch(image, name):
 	"""
-	Uses all of the above methods to get the Teensy program with the given image, 
+	Uses all of the above methods to get the Teensy program with the given image,
 	and writes that to a ./$name/$name.ino
 	"""
 	dirname = name.replace('.ino', '')

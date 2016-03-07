@@ -92,11 +92,11 @@ def px_to_mm(px):
 def point_dst(point_a, point_b):
 	"""
 	Distance between two points in n-dimensional euclidian space
-	point_a, point_b: 3-Tuples with cartesian coordinates, same unit as desired return value
+	point_a, point_b: n-Tuples with cartesian coordinates, same unit as desired return value
 	(Works for any number of dimensions)
 	"""
 	if (len(point_a) is not len(point_b)):
-		raise ValueError("Point A is {}-dimensional but point B is {}-dimensional".format(len(point_a), len(point_b)))
+		raise ValueError("Point A is {}-dimensional, but point B is {}-dimensional".format(len(point_a), len(point_b)))
 	return math.sqrt(sum([(a - b) ** 2 for a,b in zip(point_a, point_b)]))
 
 
@@ -282,6 +282,10 @@ def connectAllPolar(image, pointList, colour, thickness):
 		drawLinePolar(image, start, end, colour, thickness)
 
 def drawCuboid(image, point, oppositePoint, colour, thickness):
+	"""
+	Draw a cuboid, aligned to the cartesian axes, between {point} and
+	{oppositePoint}.
+	"""
 	(x0, y0, z0) = point
 	(x1, y1, z1) = oppositePoint
 

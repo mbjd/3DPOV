@@ -45,7 +45,7 @@ void setup(void)
 
 void loop(void)
 {
-	// Continuously chech if we should refresh the LED data
+	// Continuously check if we should refresh the LED data
 	if (running && (sinceMagnet > nextPixelMicros))
 	{
 		sendData();

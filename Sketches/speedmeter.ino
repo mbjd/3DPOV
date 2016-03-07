@@ -1,4 +1,15 @@
+/*
+ * This sketch can display an arbitrary ASCII string on the
+ * Display. Right now it's used as a speedmeter to display
+ * the rotational frequency.
+ * Please note that the first 32 characters are not available,
+ * and that the pipe character '|' (ASCII 124) is abused to
+ * display 'µ'.
+ */
+
 #include <SPI.h>
+
+// Look-up table with bitmap representations of ASCII chars
 
 // 1st index: Character (ascii[i] = ASCII character i+32)
 // 2nd index: row
@@ -874,7 +885,7 @@ elapsedMicros sinceMagnet;
 volatile uint32_t currentCharIndex = 0;
 volatile uint32_t currentColumn = 0;
 volatile char currentChar;
-volatile boolean finished = false;
+volatile bool finished = false;
 String displayedString;
 
 const uint32_t latchPin = 5;
@@ -923,14 +934,16 @@ void timerUpdate(void)
 void sendData(void)
 {
 	interrupted = false;
+
 	// The following block displays a character (or a blank column between them)
 	if(!finished)
 	{
 		SPI.beginTransaction(mySettings);
 
-		// Each character is 5 px wide + 1 px of keming
+		// Each character is 5 px wide + 1 px of keming, so 6 px
 		currentColumn = currentPixel % 6;
 		
+		// If we're in the 'kerning' column...
 		if(currentColumn == 5)
 		{
 			// Display an empty column and go to the next character

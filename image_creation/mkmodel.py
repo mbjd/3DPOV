@@ -187,10 +187,7 @@ def drawLine(image, start, end, colour, thickness):
 
 	All arguments are in cartesian and mm
 	"""
-	for (angle, height, radius), value in np.ndenumerate(image):
-		cart = cartesian(angle, height, radius)
-		if (point_line_dst(cart, start, end) <= thickness):
-			image[angle][height][radius] |= colour
+	plotBoolFunction(image, lambda x,y,z: point_line_dst((x,y,z), start, end) <= thickness, colour)
 
 
 def drawLinePolar(image, start, end, colour, thickness):
@@ -205,12 +202,10 @@ def drawLinePolar(image, start, end, colour, thickness):
 
 def drawSphere(image, position, colour, radius):
 	"""
-	Colours all points that are closer , resulting in a sphere
+	Colours all points that are closer to {position} than {radius},
+	resulting in a sphere
 	"""
-	for (angle, height, radius), value in np.ndenumerate(image):
-		cart = cartesian(angle, height, radius)
-		if point_dst(cart, position) <= radius:
-			image[angle][height][radius] |= colour
+	plotBoolFunction(image, lambda x,y,z: point_dst_3d(position, (x,y,z)) <= radius, colour)
 
 
 def drawSpherePolar(image, position, colour, radius):
@@ -228,6 +223,18 @@ def plotColourFunction(image, function):
 	for (angle, height, radius), value in np.ndenumerate(image):
 		image[angle][height][radius] |= function(*cartesian(*(angle, height, radius)))
 
+def hollowSphere(image, position, colour, inner_r, outer_r):
+	"""
+	Plot a sphere that is hollow. Save in {image}, middle of sphere is
+	{position}, everything between {inner_r} and {outer_r} is coloured
+	"""
+	plotBoolFunction(image, lambda x, y, z: inner_r <= point_dst_3d(position, (x, y, z)) <= outer_r, colour)
+
+def hollowSpherePolar(image, position, colour, inner_r, outer_r):
+	inner_r, outer_r = (px_to_mm(inner_r), px_to_mm(outer_r))
+	position = cartesian(*position)
+	hollowSphere(image, position, colour, inner_r, outer_r)
+
 def plotBoolFunction(image, function, colour):
 	"""
 	Plot a function (x, y, z) [mm] -> {true, false}
@@ -235,7 +242,6 @@ def plotBoolFunction(image, function, colour):
 	for (angle, height, radius), value in np.ndenumerate(image):
 		if function(*cartesian(*(angle, height, radius))):
 			image[angle][height][radius] |= colour
-
 
 def realFunction(image, func, colour):
 	"""

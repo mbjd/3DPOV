@@ -99,6 +99,14 @@ def point_dst(point_a, point_b):
 		raise ValueError("Point A is {}-dimensional, but point B is {}-dimensional".format(len(point_a), len(point_b)))
 	return math.sqrt(sum([(a - b) ** 2 for a,b in zip(point_a, point_b)]))
 
+def point_dst_3d(point_a, point_b):
+	"""
+	Distance between two points in 3-dimensional euclidian space
+	May be a bit faster than the general function above
+	"""
+	ax, ay, az = point_a
+	bx, by, bz = point_b
+	return math.sqrt((ax-bx) ** 2 + (ay-by) ** 2 + (az-bz) ** 2)
 
 def angle_law_of_cosines(a, b, c):
 	"""
@@ -136,12 +144,12 @@ def point_line_dst(point, line_start, line_end, cylinder=False):
 	# If the start and end point are equal (line is undefined), we'll just
 	# treat the line as a point.
 	if (line_start == line_end):
-		return point_dst(line_start, point)
+		return point_dst_3d(line_start, point)
 
 	# Calculate side lengths of triangle start-end-point
-	line_len = point_dst(line_start, line_end)
-	start_to_point = point_dst(line_start, point)
-	end_to_point = point_dst(line_end, point)
+	line_len = point_dst_3d(line_start, line_end)
+	start_to_point = point_dst_3d(line_start, point)
+	end_to_point = point_dst_3d(line_end, point)
 
 	# Calculate angles in that triangle (all in radians)
 	angle_start = angle_law_of_cosines(end_to_point, line_len, start_to_point)
@@ -197,9 +205,12 @@ def drawLinePolar(image, start, end, colour, thickness):
 
 def drawSphere(image, position, colour, radius):
 	"""
-	Draws a line of length 0, resulting in a sphere
+	Colours all points that are closer , resulting in a sphere
 	"""
-	drawLine(image, position, position, colour, radius)
+	for (angle, height, radius), value in np.ndenumerate(image):
+		cart = cartesian(angle, height, radius)
+		if point_dst(cart, position) <= radius:
+			image[angle][height][radius] |= colour
 
 
 def drawSpherePolar(image, position, colour, radius):
@@ -208,14 +219,22 @@ def drawSpherePolar(image, position, colour, radius):
 	"""
 	position = cartesian(*position)
 	radius = px_to_mm(radius)
-	drawLine(image, position, position, colour, radius)
+	drawSphere(image, position, colour, radius)
 
-def plotFunction(image, function, colour):
+def plotColourFunction(image, function):
 	"""
 	Plot a function (x, y, z) [mm] -> colour [0-7]
 	"""
 	for (angle, height, radius), value in np.ndenumerate(image):
 		image[angle][height][radius] |= function(*cartesian(*(angle, height, radius)))
+
+def plotBoolFunction(image, function, colour):
+	"""
+	Plot a function (x, y, z) [mm] -> {true, false}
+	"""
+	for (angle, height, radius), value in np.ndenumerate(image):
+		if function(*cartesian(*(angle, height, radius))):
+			image[angle][height][radius] |= colour
 
 
 def realFunction(image, func, colour):

@@ -52,6 +52,8 @@ pink   = 0b101
 yellow = 0b110
 white  = 0b111
 
+### start basics ###
+
 def newImage():
 	"""
 	Return an empty numpy 3-D Array with the dimensions of the image
@@ -176,9 +178,27 @@ def point_line_dst(point, line_start, line_end, cylinder=False):
 
 	return triangle_height
 
+### end basics ###
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### start drawing ###
 
 def drawLine(image, start, end, colour, thickness):
 	"""
@@ -188,7 +208,6 @@ def drawLine(image, start, end, colour, thickness):
 	All arguments are in cartesian and mm
 	"""
 	plotBoolFunction(image, lambda x,y,z: point_line_dst((x,y,z), start, end) <= thickness, colour)
-
 
 def drawLinePolar(image, start, end, colour, thickness):
 	"""
@@ -200,13 +219,14 @@ def drawLinePolar(image, start, end, colour, thickness):
 	drawLine(image, start, end, colour, thickness)
 
 
+
+
 def drawSphere(image, position, colour, radius):
 	"""
 	Colours all points that are closer to {position} than {radius},
 	resulting in a sphere
 	"""
 	plotBoolFunction(image, lambda x,y,z: point_dst_3d(position, (x,y,z)) <= radius, colour)
-
 
 def drawSpherePolar(image, position, colour, radius):
 	"""
@@ -216,12 +236,8 @@ def drawSpherePolar(image, position, colour, radius):
 	radius = px_to_mm(radius)
 	drawSphere(image, position, colour, radius)
 
-def plotColourFunction(image, function):
-	"""
-	Plot a function (x, y, z) [mm] -> colour [0-7]
-	"""
-	for (angle, height, radius), value in np.ndenumerate(image):
-		image[angle][height][radius] |= function(*cartesian(*(angle, height, radius)))
+
+
 
 def hollowSphere(image, position, colour, inner_r, outer_r):
 	"""
@@ -234,6 +250,16 @@ def hollowSpherePolar(image, position, colour, inner_r, outer_r):
 	inner_r, outer_r = (px_to_mm(inner_r), px_to_mm(outer_r))
 	position = cartesian(*position)
 	hollowSphere(image, position, colour, inner_r, outer_r)
+
+
+
+
+def plotColourFunction(image, function):
+	"""
+	Plot a function (x, y, z) [mm] -> colour [0-7]
+	"""
+	for (angle, height, radius), value in np.ndenumerate(image):
+		image[angle][height][radius] |= function(*cartesian(*(angle, height, radius)))
 
 def plotBoolFunction(image, function, colour):
 	"""
@@ -256,6 +282,8 @@ def realFunction(image, func, colour):
 				image[angle][z][radius] |= colour
 
 
+
+
 def fadenbild_bruteforce(image, radius, interval, twist, colour, thickness):
 	"""
 	Plots a 'fadenbild', where two circles are connected by a number of lines
@@ -265,16 +293,14 @@ def fadenbild_bruteforce(image, radius, interval, twist, colour, thickness):
 		drawLinePolar(image, (i, 0, radius), ((i+twist) % 100, 9, radius), colour, thickness)
 
 
-#               image    Num
 def drawSurface(image, surface_params, colour, thickness):
 	"""
 	Plot a surface on {image} defined by {a}x + {b}y + {c}z = d
+	where (a, b, c, d) = surface_params
 	{colour} = color of the surface (0-7)
 	{thicknes} = guess what [mm]
 	"""
-
 	(a, b, c, d) = surface_params
-
 	limit = 0.5 * thickness
 
 	for (angle, height, radius), value in np.ndenumerate(image):
@@ -285,6 +311,11 @@ def drawSurface(image, surface_params, colour, thickness):
 def drawSurfacePx(image, surface_params, colour, thickness):
 	(a, b, c, d) = surface_params
 	drawSurface(image, (a,b,c, px_to_mm(d)), colour, px_to_mm(thickness))
+
+
+
+
+
 
 def connectCircle(image, pointList, colour, thickness):
 	"""
@@ -319,6 +350,12 @@ def connectAllPolar(image, pointList, colour, thickness):
 	for (start, end) in combinations(pointList, 2):
 		drawLinePolar(image, start, end, colour, thickness)
 
+
+
+
+
+
+
 def drawCuboid(image, point, oppositePoint, colour, thickness):
 	"""
 	Draw a cuboid, aligned to the cartesian axes, between {point} and
@@ -341,8 +378,27 @@ def drawCuboidPolar(image, point, oppositePoint, colour, thickness):
 	thickness = px_to_mm(thickness)
 	drawCuboid(image, point, oppositePoint, colour, thickness)
 
+### end drawing ###
 
-# ---------------------------------------------------------------------- #
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### start metaprogramming ###
 
 """
 The following functions generate and save an Arduino program for the 3D
@@ -440,7 +496,7 @@ def writeSketch(image, name):
 		outfile.write(getProgram(image))
 		print('Wrote sketch to ./' + filepath)
 
-
+### end metaprogramming ###
 
 
 

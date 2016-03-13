@@ -5,20 +5,20 @@ This module facilitates creating images for the 3D POV display.
 
 Use it as follows:
 
-- Open python shell in the same directory as this file
+- Open python shell in the same directory as this file:
 $ python3
 
-- Import this module & get an image
+- Import this module & get an image:
 >>> from mkmodel import *
 >>> image = newImage()
 
-- Modify the image using all the provided functions
+- "Draw" something in the image using all the provided functions
 
-- Save the image in a 3D-Display compatible program
+- Save the image in a 3D-Display compatible program:
 >>> writeSketch(image, 'sketchName')
 
 - Open the file in ./sketchName/sketchName.ino using the arduino
-  IDE and upload it to the display
+  "IDE" and upload it to the display
 
 
 Coordinate formats:
@@ -97,7 +97,7 @@ def point_dst(point_a, point_b):
 	point_a, point_b: n-Tuples with cartesian coordinates, same unit as desired return value
 	(Works for any number of dimensions)
 	"""
-	if (len(point_a) is not len(point_b)):
+	if (len(point_a) != len(point_b)):
 		raise ValueError("Point A is {}-dimensional, but point B is {}-dimensional".format(len(point_a), len(point_b)))
 	return math.sqrt(sum([(a - b) ** 2 for a,b in zip(point_a, point_b)]))
 

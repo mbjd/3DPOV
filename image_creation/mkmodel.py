@@ -26,7 +26,7 @@ polar (angle 0-99, height 0-9, radius 0-15)
 cartesian (x, y, z) [mm]
 
 Voxel format: 0b010 (all colors defined below)
-	            rgb
+	        rgb
 """
 
 from matplotlib import pyplot as plt

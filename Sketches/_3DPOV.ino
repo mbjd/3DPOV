@@ -1412,7 +1412,7 @@ volatile float nextPixelMicros = 0;
 volatile bool interrupted = false;
 volatile int32_t currentPixel = 0;
 volatile int32_t startPixel = 0;
-elapsedMicros sinceMagnet;
+elapsedMicros microsSinceMagnet;
 volatile bool running = false;
 
 // To access the right board/LED
@@ -1450,7 +1450,7 @@ void setup(void)
 void loop(void)
 {
 	// Continuously check if we should refresh the LED data
-	if (running && (sinceMagnet > nextPixelMicros))
+	if (running && (microsSinceMagnet > nextPixelMicros))
 	{
 		sendData();
 	}
@@ -1464,10 +1464,10 @@ void timerUpdate(void)
 	running = true;
 
 	// Calculate the new pixel duration
-	microsPerPixel = ((float) sinceMagnet) / 100.0;
+	microsPerPixel = ((float) microsSinceMagnet) / 100.0;
 
 	// Reset timer & wait half a period before the first LED refresh 
-	sinceMagnet = 0;
+	microsSinceMagnet = 0;
 	nextPixelMicros = 0;
 
 	// Always 0 if !rotating, sawtooth from 0 to 99 otherwise
@@ -1518,7 +1518,6 @@ void sendData(void)
 		{
 			SPI.transfer(image[offsetPixel][offsetBoard][j]);
 		}
-
 
 		if (interrupted) return;
 

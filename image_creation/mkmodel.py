@@ -26,7 +26,7 @@ polar (angle 0-99, height 0-9, radius 0-15)
 cartesian (x, y, z) [mm]
 
 Voxel format: 0b010 (all colors defined below)
-	        rgb
+                rgb
 """
 
 from matplotlib import pyplot as plt
@@ -40,7 +40,7 @@ import os
 
 # template file, contains the whole program without the preceding
 # image definition and #include <SPI.h>
-template = 'template.cpp'
+template = 'template.cpp.in'
 
 # declare colour values
 black  = 0b000
@@ -171,7 +171,7 @@ def point_line_dst(point, line_start, line_end, cylinder=False):
 			return point_dst(point, line_end)
 		if angle_point < 1.5707963 - angle_end:
 			return point_dst(point, line_start)
-	
+
 	# Height of the triangle between line_start, line_end and point
 	# is equivalent to distance from point to line
 	triangle_height = start_to_point * math.sin(angle_start)
@@ -259,21 +259,21 @@ def plotColourFunction(image, function):
 	Plot a function (x, y, z) [mm] -> colour [0-7]
 	"""
 	for (angle, height, radius), value in np.ndenumerate(image):
-		image[angle][height][radius] |= function(*cartesian(*(angle, height, radius)))
+		image[angle][height][radius] |= function(*cartesian(angle, height, radius))
 
 def plotBoolFunction(image, function, colour):
 	"""
 	Plot a function (x, y, z) [mm] -> {true, false}
 	"""
 	for (angle, height, radius), value in np.ndenumerate(image):
-		if function(*cartesian(*(angle, height, radius))):
+		if function(*cartesian(angle, height, radius)):
 			image[angle][height][radius] |= colour
 
 def realFunction(image, func, colour):
 	"""
 	Plots a function (x, y) [mm] -> z [pixels]
 	"""
-	
+
 	for angle in range(100):
 		for radius in range(16):
 			x, y, z = cartesian(angle, 0, radius)

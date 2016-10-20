@@ -7,7 +7,7 @@ There's also a python program (mkmodel.py) that automates the creation of images
 
 [Matura paper (German)](http://tiny.cc/3DPOV)
 
-[Matura paper (English, WIP)](https://github.com/mbjd/english-paper/blob/master/paper.pdf)
+[Matura paper (English, half-finished)](https://github.com/mbjd/english-paper/blob/master/paper.pdf)
 
 [Shorter version in English](https://github.com/mbjd/english-paper/blob/master/paper-short.pdf)
 

@@ -28,3 +28,5 @@ Some links to discussion: [1](http://www.reddit.com/r/electronics/comments/2m6ap
 ![Photo of it in action](http://imgur.com/weyXNIT.jpg)
 
 ![Photo of it standing still](http://imgur.com/SMb0HIS.jpg)
+
+![Me at EUCYS 2016 being super happy](http://i.imgur.com/HQ8GyPd.jpg)

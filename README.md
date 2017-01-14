@@ -1,10 +1,12 @@
-3DPOV
-=====
+# 3DPOV
+
 
 This is the github repo for my 3D persistence of vision display. Here you
 can find the arduino/teensy source code (`./code/`), eagle schematic and board
 files (`./Eagle/`), and the python program I wrote to simplify the creation
 images containing simple shapes (`./image_creation/`).
+
+### Summary
 
 This was my Matura project (the end of (the equivalent of) high school in
 Switzerland), and I did most of the work in the second half of 2014. You
@@ -28,7 +30,7 @@ revolution, or 6000 times a second.
 Currently there's no way to supply images at runtime, the display has to be
 stopped so that a new program can be uploaded using the Teensy's USB port.
 
-Various versions of the paper:
+### Various versions of the paper
 
 [Original in German](http://tiny.cc/3DPOV)
 
@@ -38,18 +40,25 @@ Various versions of the paper:
 
 [Other english stuff](https://github.com/mbjd/english-paper)
 
-Videos of it in action: [1](https://www.youtube.com/watch?v=bCETWNgBxbI) [2](https://www.youtube.com/watch?v=-gFsKhf5J-I)
+### Videos
 
-[Hackaday Article](http://hackaday.com/2016/11/16/spinning-3d-pov-display-as-a-high-school-term-project/)
+[one](https://www.youtube.com/watch?v=bCETWNgBxbI) [two](https://www.youtube.com/watch?v=-gFsKhf5J-I)
 
-[ETHZ D-ITET Article](https://www.ee.ethz.ch/de/news-und-veranstaltungen/d-itet-news-channel/2016/09/d-itet-student-gewinnt-forschungs-preis-.html)
+### Press etc
 
-[Schweizer Jugend Forscht article](http://sjf.ch/eucys-2016-eth-student-gewinnt-forschungs-preis-am-ersten-studientag/)
+[Hackaday article](http://hackaday.com/2016/11/16/spinning-3d-pov-display-as-a-high-school-term-project/)
+
+[ETHZ D-ITET in German](https://www.ee.ethz.ch/de/news-und-veranstaltungen/d-itet-news-channel/2016/09/d-itet-student-gewinnt-forschungs-preis-.html) or [English](https://www.ee.ethz.ch/news-and-events/d-itet-news-channel/2016/09/d-itet-student-wins-research-award.html)
+
+[Swiss Youth in Science article](http://sjf.ch/eucys-2016-eth-student-gewinnt-forschungs-preis-am-ersten-studientag/)
 
 [EUCYS 2016 link](http://eucys2016.eu/development-of-a-3d-display/)
 
-Some links to discussion: [1](http://www.reddit.com/r/electronics/comments/2m6apx/finally_my_led_board_works_had_to_make_a_little/) [2](http://www.reddit.com/r/electronics/comments/2nrek4/almost_working_3d_pov_display/) [3](http://www.reddit.com/r/electronics/comments/2q9sg6/my_3d_pov_in_action_as_promised/)
+### Links to discussion
 
+[one](http://www.reddit.com/r/electronics/comments/2m6apx/finally_my_led_board_works_had_to_make_a_little/) [two](http://www.reddit.com/r/electronics/comments/2nrek4/almost_working_3d_pov_display/) [three](http://www.reddit.com/r/electronics/comments/2q9sg6/my_3d_pov_in_action_as_promised/)
+
+### Photos
 
 ![Photo of it in action](/images/running.jpeg)
 

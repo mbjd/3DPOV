@@ -2,9 +2,9 @@
 
 
 This is the github repo for my 3D persistence of vision display. Here you
-can find the arduino/teensy source code (`./code/`), eagle schematic and board
-files (`./Eagle/`), and the python program I wrote to simplify the creation
-images containing simple shapes (`./image_creation/`).
+can find the arduino/teensy source code (`./code/`), eagle schematic and
+board files (`./Eagle/`), and the python program I wrote to simplify the
+creation of images containing simple shapes (`./image_creation/`).
 
 ### Summary
 

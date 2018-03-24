@@ -50,7 +50,7 @@ stopped so that a new program can be uploaded using the Teensy's USB port.
 
 [ETHZ D-ITET in German](https://www.ee.ethz.ch/de/news-und-veranstaltungen/d-itet-news-channel/2016/09/d-itet-student-gewinnt-forschungs-preis-.html) or [English](https://www.ee.ethz.ch/news-and-events/d-itet-news-channel/2016/09/d-itet-student-wins-research-award.html)
 
-[Swiss Youth in Science article](http://sjf.ch/eucys-2016-eth-student-gewinnt-forschungs-preis-am-ersten-studientag/)
+[Swiss Youth in Science article](http://web.archive.org/web/20161117130814/http://sjf.ch/eucys-2016-eth-student-gewinnt-forschungs-preis-am-ersten-studientag/)
 
 [EUCYS 2016 link](http://eucys2016.eu/development-of-a-3d-display/)
 

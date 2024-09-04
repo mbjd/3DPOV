@@ -6,6 +6,12 @@ can find the arduino/teensy source code (`./code/`), eagle schematic and
 board files (`./Eagle/`), and the python program I wrote to simplify the
 creation of images containing simple shapes (`./image_creation/`).
 
+
+### Videos
+
+[one](https://www.youtube.com/watch?v=bCETWNgBxbI) [two](https://www.youtube.com/watch?v=-gFsKhf5J-I)
+
+
 ### Summary
 
 This was my Matura project (the end of (the equivalent of) high school in
@@ -40,10 +46,6 @@ stopped so that a new program can be uploaded using the Teensy's USB port.
 
 [Other english stuff](https://github.com/mbjd/english-paper)
 
-### Videos
-
-[one](https://www.youtube.com/watch?v=bCETWNgBxbI) [two](https://www.youtube.com/watch?v=-gFsKhf5J-I)
-
 ### Press etc
 
 [Hackaday article](http://hackaday.com/2016/11/16/spinning-3d-pov-display-as-a-high-school-term-project/)
@@ -57,6 +59,7 @@ stopped so that a new program can be uploaded using the Teensy's USB port.
 ### Links to discussion
 
 [one](http://www.reddit.com/r/electronics/comments/2m6apx/finally_my_led_board_works_had_to_make_a_little/) [two](http://www.reddit.com/r/electronics/comments/2nrek4/almost_working_3d_pov_display/) [three](http://www.reddit.com/r/electronics/comments/2q9sg6/my_3d_pov_in_action_as_promised/)
+
 
 ### Photos
 

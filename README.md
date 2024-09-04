@@ -38,7 +38,7 @@ stopped so that a new program can be uploaded using the Teensy's USB port.
 
 ### Various versions of the paper
 
-[Original in German](http://tiny.cc/3DPOV)
+[Original in German](https://drive.google.com/file/d/0B2iq6C3wqe05aEx5dVFoNF9xR28/view?usp=sharing&resourcekey=0-dw7vPy6Eh3UUGyYrgM35uw)
 
 [English long version, not quite finished](https://github.com/mbjd/english-paper/blob/master/paper.pdf)
 

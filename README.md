@@ -18,6 +18,14 @@ This was my Matura project (the end of (the equivalent of) high school in
 Switzerland), and I did most of the work in the second half of 2014. You
 can find various more detailed reports below, but here's a quick summary:
 
+The *very* basic idea is this: We have a 2D display
+and rotate it quickly through the third dimension. By controlling each 
+pixel in a precisely timed way, we can light up a set of points in 3D 
+space, but only at specific times (when the corresponding pixel is
+physically at the right spot). When this rotation makes it fast enough, 
+[persistence of vision](https://en.wikipedia.org/wiki/Persistence_of_vision) 
+will make it seem like an actual 3D image is continuously displayed. 
+
 The display itself consists of 10 LED rows mounted in a double-helix
 arrangement. Each of them contains 16 RGB LEDs driven by three shift
 registers, for a total of 480 LEDs or 160 Pixels.

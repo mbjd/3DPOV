@@ -22,7 +22,7 @@ The *very* basic idea is this: We have a 2D display
 and rotate it quickly through the third dimension. By controlling each 
 pixel in a precisely timed way, we can light up a set of points in 3D 
 space, but only at specific times (when the corresponding pixel is
-physically at the right spot). When this rotation makes it fast enough, 
+physically at the right spot). When this rotation is fast enough, 
 [persistence of vision](https://en.wikipedia.org/wiki/Persistence_of_vision) 
 will make it seem like an actual 3D image is continuously displayed. 
 
